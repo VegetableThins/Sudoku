@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function GridCell(props) {
   const { row, column, value, isDefault, UpdateBoard } = props;
-  const [cellValue, setCellValue] = useState(0);
+  const [cellValue, setCellValue] = useState(value);
 
   function UpdateCellValue(e) {
-    setCellValue(e.target.value);
-    UpdateBoard(e.target.value, row, column);
+    if (!isNaN(e.target.value)) {
+      setCellValue(e.target.value);
+      UpdateBoard(e.target.value, row, column);
+    } else {
+      setCellValue(0);
+    }
   }
 
   function CellSelect(e) {
