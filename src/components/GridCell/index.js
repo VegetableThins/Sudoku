@@ -4,6 +4,11 @@ export default function GridCell(props) {
   const { row, column, value, isDefault, UpdateBoard } = props;
   const [cellValue, setCellValue] = useState(value);
 
+  useEffect(() => {
+    console.log(value);
+    setCellValue(value);
+  }, [value]);
+
   function UpdateCellValue(e) {
     if (!isNaN(e.target.value)) {
       setCellValue(e.target.value);

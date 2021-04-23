@@ -6,17 +6,16 @@ import GridCell from "../GridCell/index";
 
 function App() {
   var boardNum = 1;
-  //using json parse json stringify to deep copy the multidimensional arrays
 
+  //using json parse json stringify to deep copy the multidimensional arrays
   var resetBoard = JSON.parse(JSON.stringify(boards.boards[boardNum]));
   var solvedBoard = solver.Solve(JSON.parse(JSON.stringify(resetBoard)));
-  var currentBoard = JSON.parse(JSON.stringify(resetBoard));
-  const [board, setBoard] = useState(currentBoard);
+  var tempBoard = JSON.parse(JSON.stringify(resetBoard));
+  const [board, setBoard] = useState(resetBoard);
 
   function UpdateBoard(value, row, column) {
-    var tempBoard = board;
-    tempBoard[row][column] = value;
-    setBoard(tempBoard);
+    tempBoard[row][column] = parseInt(value);
+    console.log(tempBoard);
   }
 
   function SolveBoard() {
@@ -24,18 +23,16 @@ function App() {
   }
 
   function ResetBoard() {
-    // reset board isn't resetting the input forms for some reason
-    // I have no idea why this is happening
-    // in the console is shows the correct values for the board
-    // but the input fields are retaining the previously entered values
-    // maybe has something to do with state?? I'm not sure...
-    currentBoard = JSON.parse(JSON.stringify(resetBoard));
-    setBoard(currentBoard);
+    // reset isn't resetting when I have the numbers in play
+    // only when the show solution is shown
+    // I think it has to do with when and how the state is being set
+    // but I can't for the life of me figure it out right now.
+    setBoard(JSON.parse(JSON.stringify(resetBoard)));
   }
 
   function CheckAnswers() {
     //check the stringified versions of both boards to see if they match
-    if (JSON.stringify(board) === JSON.stringify(solvedBoard)) {
+    if (JSON.stringify(tempBoard) === JSON.stringify(solvedBoard)) {
       alert("Congratulations, you WON!");
     } else {
       alert("These numbers aren't correct...");
